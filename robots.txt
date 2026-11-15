@@ -1,0 +1,12 @@
+# ÉLESÍTÉS ELŐTTI ÁLLAPOT – a lenti blokk cserélendő az élesítéskor
+User-agent: *
+Disallow: /
+
+# ÉLES ÁLLAPOT (élesítéskor ez lépjen életbe – lásd README „Élesítés"):
+# User-agent: *
+# Allow: /
+# Sitemap: https://gtmautoszerviz.hu/sitemap.xml
+#
+# Az éles állapotban egyetlen AI-keresőrobot (OAI-SearchBot, PerplexityBot,
+# ClaudeBot, Google-Extended stb.) sincs tiltva – ez a kutatás szerint
+# feltétele, nem akadálya az AI-láthatóságnak (01_kutatasi_jelentes.md 6.1).
