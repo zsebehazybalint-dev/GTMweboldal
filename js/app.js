@@ -65,10 +65,30 @@
     var toggle = document.getElementById("navToggle");
     var nav = document.getElementById("mainNav");
     if (!toggle || !nav) return;
+
+    var backdrop = document.createElement("div");
+    backdrop.className = "nav-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.appendChild(backdrop);
+
+    function setOpen(open) {
+      toggle.setAttribute("aria-expanded", String(open));
+      nav.classList.toggle("is-open", open);
+      backdrop.classList.toggle("is-open", open);
+      document.body.classList.toggle("nav-open", open);
+    }
+
     toggle.addEventListener("click", function () {
-      var open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      nav.classList.toggle("is-open", !open);
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    backdrop.addEventListener("click", function () { setOpen(false); });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
     });
   }
 

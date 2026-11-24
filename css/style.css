@@ -448,7 +448,22 @@ section { padding: 56px 0; }
   }
   .nav-dropdown.is-open .dropdown-panel { display: block; }
   .nav-dropdown > button.nav-top { width: 100%; justify-content: space-between; }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+    z-index: 490;
+  }
+  .nav-backdrop.is-open { opacity: 1; pointer-events: auto; }
 }
+
+body.nav-open { overflow: hidden; }
 
 /* ---------- Hero ---------- */
 .hero {
