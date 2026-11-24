@@ -726,11 +726,6 @@ body.nav-open { overflow: hidden; }
 .kv-table div { display: flex; gap: 8px; flex-wrap: wrap; }
 .kv-table .k { font-weight: 600; min-width: 220px; }
 
-/* ---------- Breadcrumb ---------- */
-.breadcrumb { font-size: .88rem; color: var(--muted); margin: 16px 0 0; }
-.breadcrumb a { color: var(--muted); }
-.breadcrumb a:hover { color: var(--accent); }
-
 /* ---------- 404 ---------- */
 .error-page { text-align: center; padding: 100px 0; }
 
