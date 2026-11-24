@@ -175,8 +175,7 @@ ul, ol { margin: 0 0 1em; padding-left: 1.3em; }
   padding-left: 20px;
   padding-right: 20px;
 }
-section { padding: 56px 0; }
-.section-tight { padding: 32px 0; }
+section { padding: 28px 0; }
 .section-alt { background: var(--bg); }
 
 /* ---------- Akadálymentesség ---------- */
@@ -724,7 +723,7 @@ body.nav-open { overflow: hidden; }
 .kv-table .k { font-weight: 600; min-width: 220px; }
 
 /* ---------- 404 ---------- */
-.error-page { text-align: center; padding: 100px 0; }
+.error-page { text-align: center; padding-top: 100px; padding-bottom: 100px; }
 
 /* ---------- Segéd ---------- */
 .text-muted { color: var(--muted); }
