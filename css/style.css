@@ -172,7 +172,8 @@ ul, ol { margin: 0 0 1em; padding-left: 1.3em; }
 .container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 section { padding: 56px 0; }
 .section-tight { padding: 32px 0; }
@@ -658,7 +659,7 @@ body.nav-open { overflow: hidden; }
   display: none;
 }
 @media (max-width: 640px) {
-  .container { padding: 0 28px; }
+  .container { padding-left: 28px; padding-right: 28px; }
   .mobile-call-bar {
     display: flex;
     position: fixed;
