@@ -152,7 +152,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (status) {
-        status.textContent = "Küldés…";
+        status.innerHTML = '<span class="spinner" aria-hidden="true"></span>Küldés…';
         status.className = "form-status";
       }
       fetch(form.action, {
@@ -179,12 +179,96 @@
     });
   }
 
+  /* ---------- Úttest-csík kisautója: a navigációt követi, oldalbetöltéskor beáll ----------
+     Csak asztali méretnél fut (a .road-strip mobilon úgyis display:none, lásd CSS) — a
+     prefers-reduced-motion globális szabálya a gördülést/kipufogófüstöt .001ms-re rövidíti. */
+  function initRoadCar() {
+    var strip = document.querySelector(".road-strip");
+    var car = document.getElementById("roadCar");
+    var nav = document.getElementById("mainNav");
+    if (!strip || !car || !nav) return;
+    if (!window.matchMedia || !window.matchMedia("(min-width: 881px)").matches) return;
+
+    var targets = Array.prototype.slice.call(
+      nav.querySelectorAll(":scope > ul > li > a, :scope > ul > li.nav-dropdown > button.nav-top")
+    );
+    if (!targets.length) return;
+
+    var lastX = null;
+
+    function carWidth() {
+      return car.getBoundingClientRect().width || 40;
+    }
+
+    function moveTo(targetEl) {
+      if (!targetEl) return;
+      var stripRect = strip.getBoundingClientRect();
+      var elRect = targetEl.getBoundingClientRect();
+      var centerX = (elRect.left + elRect.right) / 2 - stripRect.left;
+      var x = Math.max(4, Math.min(stripRect.width - carWidth() - 4, centerX - carWidth() / 2));
+      if (lastX !== null && x < lastX - 1) {
+        car.classList.add("is-facing-left");
+      } else if (lastX !== null && x > lastX + 1) {
+        car.classList.remove("is-facing-left");
+      }
+      lastX = x;
+      car.classList.add("is-moving");
+      car.style.setProperty("--car-x", x + "px");
+    }
+
+    function restTarget() {
+      var current = nav.querySelector('a[aria-current="page"]');
+      if (current) {
+        if (targets.indexOf(current) !== -1) return current;
+        var dropdown = current.closest(".nav-dropdown");
+        if (dropdown) {
+          var btn = dropdown.querySelector("button.nav-top");
+          if (btn) return btn;
+        }
+      }
+      return targets[0] || null;
+    }
+
+    car.addEventListener("transitionend", function (e) {
+      if (e.propertyName === "transform") car.classList.remove("is-moving");
+    });
+
+    targets.forEach(function (el) {
+      el.addEventListener("mouseenter", function () { moveTo(el); });
+      el.addEventListener("focus", function () { moveTo(el); });
+    });
+
+    nav.addEventListener("mouseleave", function () { moveTo(restTarget()); });
+    nav.addEventListener("focusout", function (e) {
+      if (nav.contains(e.relatedTarget)) return;
+      moveTo(restTarget());
+    });
+
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        var rest = restTarget();
+        if (!rest) return;
+        car.style.transition = "none";
+        moveTo(rest);
+        /* force reflow, hogy a transition visszaálljon az átméretezés utáni mozgásokra */
+        void car.offsetWidth;
+        car.style.transition = "";
+      }, 150);
+    });
+
+    // Kezdő "beguruló" animáció oldalbetöltéskor: a kocsi a bal szélről begördül a helyére.
+    setTimeout(function () { moveTo(restTarget()); }, 450);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initTheme();
     initMobileNav();
     initDropdown();
     captureUtm();
     initForm();
+    initRoadCar();
   });
 
   window.GTM_SITE = { canonicalOrigin: CANONICAL_ORIGIN, formspreeEndpoint: FORMSPREE_ENDPOINT };

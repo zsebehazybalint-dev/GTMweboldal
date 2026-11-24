@@ -711,3 +711,181 @@ section { padding: 56px 0; }
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* ==========================================================================
+   Autószerviz-motívumok: úttest + gördülő kisautó, fogaskerekek
+   Mindegyik dekoratív (aria-hidden), a prefers-reduced-motion globális
+   szabálya (lásd fent) mindet .001ms-re rövidíti, ha a látogató ezt kéri.
+   ========================================================================== */
+
+/* ---------- Úttest-csík a fejléc alatt, a navigációt követő kisautóval ---------- */
+.road-strip {
+  position: relative;
+  height: 20px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+.road-strip .road-lane {
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background-image: repeating-linear-gradient(to right, var(--line) 0 16px, transparent 16px 32px);
+}
+.road-car {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 40px;
+  height: 18px;
+  transform: translate(var(--car-x, -60px), -50%);
+  transition: transform .9s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
+  pointer-events: none;
+}
+.road-car .car-flip { position: relative; width: 100%; height: 100%; transform: scaleX(1); }
+.road-car.is-facing-left .car-flip { transform: scaleX(-1); }
+.road-car .car-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.road-car .car-body { fill: var(--accent); }
+.road-car .car-window { fill: var(--surface-2); }
+.road-car .wheel { fill: var(--text); transform-box: fill-box; transform-origin: center; }
+.road-car .hub { fill: var(--surface-2); }
+.road-car.is-moving .wheel { animation: wheelspin .35s linear infinite; }
+.road-car .exhaust { position: absolute; left: -4px; top: 55%; width: 0; height: 0; }
+.road-car .exhaust span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0;
+}
+.road-car.is-moving .exhaust span { animation: puff .6s ease-out infinite; }
+.road-car.is-moving .exhaust span:nth-child(2) { animation-delay: .15s; }
+.road-car.is-moving .exhaust span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes wheelspin { to { transform: rotate(360deg); } }
+@keyframes puff {
+  0%   { opacity: .5; transform: translate(0, 0) scale(.5); }
+  100% { opacity: 0; transform: translate(-16px, -10px) scale(1.4); }
+}
+
+@media (max-width: 880px) {
+  /* Érintőképernyőn nincs hover, és a hamburgermenüben nincs mihez igazítani a kocsit */
+  .road-strip { display: none; }
+}
+
+/* ---------- Fogaskerék-vízjel a hero szekciók mögött ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 240px;
+  height: 240px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231C5CB4' d='M50 6l5 10 11-3 2 11 11 2-3 11 10 5-10 5 3 11-11 2-2 11-11-3-5 10-5-10-11 3-2-11-11-2 3-11-10-5 10-5-3-11 11-2 2-11 11 3z'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: .07;
+  animation: slow-spin 90s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+@keyframes slow-spin { to { transform: rotate(360deg); } }
+
+/* ---------- "Garázsaljzat" elválasztó a section-alt szekciók tetején ---------- */
+.section-alt {
+  position: relative;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.section-alt::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-image: radial-gradient(circle, var(--muted) 1.5px, transparent 1.6px);
+  background-size: 18px 3px;
+  background-repeat: repeat-x;
+  opacity: .35;
+}
+
+/* ---------- Kártyaikonok: fogaskerék / kerék / csavarkulcs hoverre ---------- */
+.card { transition: transform .15s ease, box-shadow .15s ease; }
+.card:hover { transform: translateY(-3px); }
+.card:hover .card-icon svg { animation: icon-spin .7s ease; }
+.card:hover .card-icon.card-icon--wheel svg { animation: icon-spin-fast .5s linear; }
+.card:hover .card-icon.card-icon--wrench svg { animation: icon-wiggle .5s ease; }
+@keyframes icon-spin { to { transform: rotate(360deg); } }
+@keyframes icon-spin-fast { to { transform: rotate(360deg); } }
+@keyframes icon-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-18deg); }
+  75% { transform: rotate(18deg); }
+}
+
+/* ---------- Lépés-lista: finom "alkatrész-gyűrű" a lépésszámon ---------- */
+.step-num { box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--line); }
+
+/* ---------- GYIK: fogaskerék-jel, nyitáskor elfordul ---------- */
+.faq-item summary::after { content: "⚙"; font-size: 1.2rem; transition: transform .3s ease; }
+.faq-item[open] summary::after { content: "⚙"; transform: rotate(75deg); }
+
+/* ---------- Form-visszajelzés: forgó fogaskerék-spinner küldés közben ---------- */
+.form-status .spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: icon-spin .7s linear infinite;
+}
+
+/* ---------- CTA-sáv: halvány fogaskerék-mintázat háttér ---------- */
+.cta-bar {
+  position: relative;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.09' d='M30 4l3 6 6-2 1 7 7 1-2 6 6 3-6 3 2 6-7 1-1 7-6-2-3 6-3-6-6 2-1-7-7-1 2-6-6-3 6-3-2-6 7-1 1-7z'/%3E%3C/svg%3E"),
+    var(--accent);
+  background-repeat: repeat;
+  background-size: 60px 60px;
+}
+
+/* ---------- Lábléc teteje: fogazott szegély ---------- */
+.site-footer { position: relative; border-top: none; }
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-image: linear-gradient(135deg, var(--line) 25%, transparent 25%),
+                     linear-gradient(225deg, var(--line) 25%, transparent 25%);
+  background-position: 0 0, 6px 0;
+  background-size: 12px 6px;
+}
+
+/* ---------- 404: lerobbant kisautó illusztráció ---------- */
+.breakdown-illustration { width: 180px; height: auto; margin: 0 auto 24px; overflow: visible; }
+.breakdown-illustration .car-body { fill: var(--accent); }
+.breakdown-illustration .car-window { fill: var(--surface-2); }
+.breakdown-illustration .wheel { fill: var(--text); }
+.breakdown-illustration .hub { fill: var(--surface-2); }
+.breakdown-illustration .smoke circle { fill: var(--muted); opacity: 0; animation: smoke-rise 2.4s ease-in infinite; }
+.breakdown-illustration .smoke circle:nth-child(2) { animation-delay: .6s; }
+.breakdown-illustration .smoke circle:nth-child(3) { animation-delay: 1.2s; }
+@keyframes smoke-rise {
+  0%   { opacity: 0; transform: translate(0, 0) scale(.6); }
+  20%  { opacity: .5; }
+  100% { opacity: 0; transform: translate(-6px, -26px) scale(1.5); }
+}

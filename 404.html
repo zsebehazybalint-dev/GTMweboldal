@@ -58,12 +58,43 @@
       </button>
     </div>
   </div>
+  <div class="road-strip" aria-hidden="true">
+    <div class="road-lane"></div>
+    <div class="road-car" id="roadCar">
+      <div class="car-flip">
+        <svg class="car-svg" viewBox="0 0 64 28" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <path class="car-body" d="M4 20 L8 11 Q10 8 14 8 L40 8 Q44 8 46 11 L50 16 L60 17 Q62 17 62 19 L62 20 Z"/>
+          <rect class="car-window" x="16" y="9" width="10" height="7" rx="1"/>
+          <rect class="car-window" x="28" y="9" width="10" height="7" rx="1"/>
+          <circle class="wheel" cx="16" cy="21" r="5"/>
+          <circle class="wheel" cx="48" cy="21" r="5"/>
+          <circle class="hub" cx="16" cy="21" r="2"/>
+          <circle class="hub" cx="48" cy="21" r="2"/>
+        </svg>
+        <span class="exhaust"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main id="main">
   <section class="container error-page">
+    <svg class="breakdown-illustration" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Egy lerobbant, füstölgő kisautó illusztrációja">
+      <g class="smoke">
+        <circle cx="34" cy="28" r="5"/>
+        <circle cx="29" cy="20" r="6"/>
+        <circle cx="35" cy="12" r="7"/>
+      </g>
+      <path class="car-body" d="M20 60 L28 38 Q31 32 38 32 L95 32 Q101 32 105 38 L114 50 L138 52 Q142 52 142 56 L142 60 Z"/>
+      <rect class="car-window" x="44" y="36" width="22" height="16" rx="2"/>
+      <rect class="car-window" x="70" y="36" width="22" height="16" rx="2"/>
+      <circle class="wheel" cx="44" cy="62" r="11"/>
+      <circle class="wheel" cx="118" cy="62" r="11"/>
+      <circle class="hub" cx="44" cy="62" r="4"/>
+      <circle class="hub" cx="118" cy="62" r="4"/>
+    </svg>
     <h1>A keresett oldal nem található</h1>
-    <p class="lead-sentence" style="margin:0 auto 24px">Lehet, hogy a link elavult, vagy elgépelte a címet.</p>
+    <p class="lead-sentence" style="margin:0 auto 24px">Lehet, hogy a link elavult, vagy elgépelte a címet – mint nálunk ez a kisautó, ez az oldal is lerobbant.</p>
     <p><a class="btn btn-primary" href="index.html">Vissza a főoldalra</a></p>
   </section>
 </main>
