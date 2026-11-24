@@ -310,7 +310,7 @@ section { padding: 56px 0; }
 .main-nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
 
 .nav-dropdown { position: relative; }
-.nav-dropdown > button.nav-top {
+.nav-dropdown > .nav-top {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -318,13 +318,14 @@ section { padding: 56px 0; }
   min-height: 44px;
   background: none;
   border: none;
+  text-decoration: none;
   font: inherit;
   font-weight: 500;
   color: var(--text);
   cursor: pointer;
   border-radius: 8px;
 }
-.nav-dropdown > button.nav-top:hover { background: var(--surface-2); }
+.nav-dropdown > .nav-top:hover { background: var(--surface-2); }
 .nav-dropdown .caret { font-size: .7em; transition: transform .15s ease; }
 .dropdown-panel {
   position: absolute;
@@ -345,8 +346,7 @@ section { padding: 56px 0; }
   z-index: 50;
 }
 .nav-dropdown:hover .dropdown-panel,
-.nav-dropdown:focus-within .dropdown-panel,
-.nav-dropdown.is-open .dropdown-panel {
+.nav-dropdown:focus-within .dropdown-panel {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, 0);
@@ -363,8 +363,6 @@ section { padding: 56px 0; }
   white-space: nowrap;
 }
 .dropdown-panel li a:hover { background: var(--surface-2); }
-.dropdown-back { display: none; }
-.dropdown-heading { display: none; }
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 
@@ -454,67 +452,11 @@ section { padding: 56px 0; }
     border-radius: 999px;
     box-shadow: var(--shadow);
   }
-  .nav-dropdown { display: flex; flex-direction: column; align-items: center; }
-  .nav-dropdown > button.nav-top {
-    width: auto;
-    justify-content: center;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    box-shadow: var(--shadow);
-  }
-  .nav-dropdown .dropdown-panel {
-    position: static;
-    width: auto;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 0;
-    margin-top: 10px;
-  }
-  .nav-dropdown.is-open .dropdown-panel { display: flex; }
-  .dropdown-panel li a {
-    white-space: normal;
-    text-align: center;
-    font-size: .92rem;
-    background: var(--surface-2);
-    border-radius: 999px;
-  }
-
-  /* "Szolgáltatások" saját mobil oldalként: a többi menüpont és a
-     gomb maga eltűnik, a dropdown-panel veszi át a teljes középre
-     igazított felületet, vissza-gombbal és címsorral. */
-  .main-nav.services-active > ul > li:not(.nav-dropdown) { display: none; }
-  .main-nav.services-active .nav-dropdown > button.nav-top { display: none; }
-  .dropdown-back { display: block; }
-  .dropdown-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font: inherit;
-    font-weight: 600;
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    padding: 10px 14px;
-    min-height: 44px;
-  }
-  .dropdown-heading {
-    display: block;
-    font-family: var(--font-cond);
-    font-weight: 600;
-    font-size: 1.3rem;
-    color: var(--text);
-    margin: 0 0 4px;
-  }
+  /* Mobilon a "Szolgáltatások" is egyszerű link a szolgaltatasok.html
+     oldalra (ugyanúgy pill-gomb, mint a többi .main-nav a), a lenyíló
+     almenü (.dropdown-panel) csak az asztali hover-flyouthoz kell. */
+  .nav-dropdown .caret { display: none; }
+  .dropdown-panel { display: none; }
 
   .nav-backdrop {
     position: fixed;
