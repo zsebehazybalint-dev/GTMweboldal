@@ -363,6 +363,8 @@ section { padding: 56px 0; }
   white-space: nowrap;
 }
 .dropdown-panel li a:hover { background: var(--surface-2); }
+.dropdown-back { display: none; }
+.dropdown-heading { display: none; }
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 
@@ -484,6 +486,34 @@ section { padding: 56px 0; }
     font-size: .92rem;
     background: var(--surface-2);
     border-radius: 999px;
+  }
+
+  /* "Szolgáltatások" saját mobil oldalként: a többi menüpont és a
+     gomb maga eltűnik, a dropdown-panel veszi át a teljes középre
+     igazított felületet, vissza-gombbal és címsorral. */
+  .main-nav.services-active > ul > li:not(.nav-dropdown) { display: none; }
+  .main-nav.services-active .nav-dropdown > button.nav-top { display: none; }
+  .dropdown-back { display: block; }
+  .dropdown-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: inherit;
+    font-weight: 600;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+  .dropdown-heading {
+    display: block;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin: 0 0 4px;
   }
 
   .nav-backdrop {

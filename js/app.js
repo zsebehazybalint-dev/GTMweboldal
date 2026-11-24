@@ -76,6 +76,14 @@
       nav.classList.toggle("is-open", open);
       backdrop.classList.toggle("is-open", open);
       document.body.classList.toggle("nav-open", open);
+      if (!open) {
+        nav.classList.remove("services-active");
+        nav.querySelectorAll(".nav-dropdown").forEach(function (dd) {
+          dd.classList.remove("is-open");
+          var btn = dd.querySelector("button.nav-top");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+        });
+      }
     }
 
     toggle.addEventListener("click", function () {
@@ -92,9 +100,12 @@
     });
   }
 
-  /* ---------- Szolgáltatások legördülő (desktop hover/focus, mobil kattintás) ---------- */
+  /* ---------- Szolgáltatások legördülő (desktop hover/focus; mobilon saját
+     "aloldalként" veszi át a menü helyét, lásd .services-active a CSS-ben) ---------- */
   function initDropdown() {
     var dropdowns = document.querySelectorAll(".nav-dropdown");
+    var mainNav = document.getElementById("mainNav");
+
     dropdowns.forEach(function (dd) {
       var btn = dd.querySelector("button.nav-top");
       if (!btn) return;
@@ -108,15 +119,30 @@
         if (!open) {
           dd.classList.add("is-open");
           btn.setAttribute("aria-expanded", "true");
+          if (mainNav) mainNav.classList.add("services-active");
+        } else if (mainNav) {
+          mainNav.classList.remove("services-active");
         }
       });
+
+      var backBtn = dd.querySelector(".dropdown-back-btn");
+      if (backBtn) {
+        backBtn.addEventListener("click", function () {
+          dd.classList.remove("is-open");
+          btn.setAttribute("aria-expanded", "false");
+          if (mainNav) mainNav.classList.remove("services-active");
+          btn.focus();
+        });
+      }
     });
+
     document.addEventListener("click", function (e) {
       dropdowns.forEach(function (dd) {
         if (!dd.contains(e.target)) {
           dd.classList.remove("is-open");
           var btn = dd.querySelector("button.nav-top");
           if (btn) btn.setAttribute("aria-expanded", "false");
+          if (mainNav) mainNav.classList.remove("services-active");
         }
       });
     });
