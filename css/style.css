@@ -458,6 +458,7 @@ section { padding: 56px 0; }
   .nav-dropdown > .nav-top {
     background: var(--surface);
     border: 1px solid var(--line);
+    border-radius: 999px;
     box-shadow: var(--shadow);
   }
   .nav-dropdown .caret { display: none; }
