@@ -455,6 +455,11 @@ section { padding: 56px 0; }
   /* Mobilon a "Szolgáltatások" is egyszerű link a szolgaltatasok.html
      oldalra (ugyanúgy pill-gomb, mint a többi .main-nav a), a lenyíló
      almenü (.dropdown-panel) csak az asztali hover-flyouthoz kell. */
+  .nav-dropdown > .nav-top {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
   .nav-dropdown .caret { display: none; }
   .dropdown-panel { display: none; }
 
