@@ -342,6 +342,7 @@ section { padding: 56px 0; }
   visibility: hidden;
   transform: translateY(-6px);
   transition: opacity .15s ease, transform .15s ease, visibility .15s;
+  z-index: 50;
 }
 .nav-dropdown:hover .dropdown-panel,
 .nav-dropdown:focus-within .dropdown-panel,
@@ -721,6 +722,7 @@ section { padding: 56px 0; }
 /* ---------- Úttest-csík a fejléc alatt, a navigációt követő kisautóval ---------- */
 .road-strip {
   position: relative;
+  z-index: 1;
   height: 20px;
   overflow: hidden;
   background: var(--surface-2);
@@ -786,13 +788,23 @@ section { padding: 56px 0; }
   right: -40px;
   width: 240px;
   height: 240px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231C5CB4' d='M50 6l5 10 11-3 2 11 11 2-3 11 10 5-10 5 3 11-11 2-2 11-11-3-5 10-5-10-11 3-2-11-11-2 3-11-10-5 10-5-3-11 11-2 2-11 11 3z'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231C5CB4' d='M50 6l5 10 11-3 2 11 11 2-3 11 10 5-10 5 3 11-11 2-2 11-11-3-5 10-5-10-11 3-2-11-11-2 3-11-10-5 10-5-3-11 11-2 2-11 11 3z'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%23F5F7FA'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: .07;
+  opacity: .1;
   animation: slow-spin 90s linear infinite;
   pointer-events: none;
   z-index: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%235B93D6' d='M50 6l5 10 11-3 2 11 11 2-3 11 10 5-10 5 3 11-11 2-2 11-11-3-5 10-5-10-11 3-2-11-11-2 3-11-10-5 10-5-3-11 11-2 2-11 11 3z'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%230D1218'/%3E%3C/svg%3E");
+    opacity: .16;
+  }
+}
+:root[data-theme="dark"] .hero::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%235B93D6' d='M50 6l5 10 11-3 2 11 11 2-3 11 10 5-10 5 3 11-11 2-2 11-11-3-5 10-5-10-11 3-2-11-11-2 3-11-10-5 10-5-3-11 11-2 2-11 11 3z'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%230D1218'/%3E%3C/svg%3E");
+  opacity: .16;
 }
 .hero > * { position: relative; z-index: 1; }
 @keyframes slow-spin { to { transform: rotate(360deg); } }
