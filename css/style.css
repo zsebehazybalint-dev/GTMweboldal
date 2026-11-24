@@ -631,6 +631,8 @@ section { padding: 56px 0; }
   display: none;
 }
 @media (max-width: 640px) {
+  .container { padding: 0 28px; }
+  .cta-bar .container { padding: 28px 28px; }
   .mobile-call-bar {
     display: flex;
     position: fixed;
