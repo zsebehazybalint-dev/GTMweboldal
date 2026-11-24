@@ -481,9 +481,7 @@ section { padding: 56px 0; }
 body.nav-open { overflow: hidden; }
 
 /* ---------- Hero ---------- */
-.hero {
-  padding: 56px 0 40px;
-}
+/* nincs saját padding - az egységes section{padding:56px 0} szabályt követi */
 .hero-eyebrow {
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -651,7 +649,6 @@ body.nav-open { overflow: hidden; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 28px 20px;
 }
 .cta-bar h2 { color: var(--accent-ink); margin: 0; }
 .cta-bar .btn-primary { background: var(--accent-ink); color: var(--accent); }
@@ -662,7 +659,6 @@ body.nav-open { overflow: hidden; }
 }
 @media (max-width: 640px) {
   .container { padding: 0 28px; }
-  .cta-bar .container { padding: 28px 28px; }
   .mobile-call-bar {
     display: flex;
     position: fixed;
