@@ -809,25 +809,6 @@ section { padding: 56px 0; }
 .hero > * { position: relative; z-index: 1; }
 @keyframes slow-spin { to { transform: rotate(360deg); } }
 
-/* ---------- "Garázsaljzat" elválasztó a section-alt szekciók tetején ---------- */
-.section-alt {
-  position: relative;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.section-alt::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-image: radial-gradient(circle, var(--muted) 1.5px, transparent 1.6px);
-  background-size: 18px 3px;
-  background-repeat: repeat-x;
-  opacity: .35;
-}
-
 /* ---------- Kártyaikonok: fogaskerék / kerék / csavarkulcs hoverre ---------- */
 .card { transition: transform .15s ease, box-shadow .15s ease; }
 .card:hover { transform: translateY(-3px); }
